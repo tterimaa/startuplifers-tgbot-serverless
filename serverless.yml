@@ -29,12 +29,6 @@ functions:
     events:
       - http:
           method: get
-  getStoredJobs:
-    handler: getStoredJobs.main
-    events:
-      - http:
-          method: get
-
   index:
     handler: index.main
     events:

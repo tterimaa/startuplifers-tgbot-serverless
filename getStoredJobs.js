@@ -1,19 +1,18 @@
 import AWS from 'aws-sdk';
 
-export function main(event, context, callback) {
+export function getJobs(bucketName, fileName) {
   const s3 = new AWS.S3({apiVersion: '2006-03-01'});
-  let params = {
-    Bucket: 'startuplifersbucket',
-    Key: 'jobs.json'
+
+  const params = {
+    Bucket: bucketName,
+    Key: fileName
   };
-  s3.getObject(params, function(err, data) {
+
+  return s3.getObject(params, err => {
     if(err) {
-      console.log('Error', err);
+      console.log(err);
     };
-    if(data) {
-      let storedJobs = JSON.parse(data.Body.toString());
-      console.log('Jobs currently in s3 bucket: ', storedJobs);
-      return storedJobs;
-    };
-  });
+  }).promise();
 }
+
+export default getJobs;
