@@ -13,8 +13,8 @@ plugins:
 provider:
   name: aws
   runtime: nodejs10.x
-  stage: dev
-  region: us-east-1
+  stage: prod
+  region: eu-west-2
   # To load environment variables externally
   # rename env.example to .env and uncomment
   # the following line. Also, make sure to not
@@ -24,9 +24,19 @@ provider:
   #  sampleEnvVar: ${env:SAMPLE_ENV_VAR}
 
 functions:
-  hello:
-    handler: handler.hello
+  uploadTestApi:
+    handler: uploadTestApi.main
     events:
       - http:
-          path: hello
+          method: get
+  getStoredJobs:
+    handler: getStoredJobs.main
+    events:
+      - http:
+          method: get
+
+  index:
+    handler: index.main
+    events:
+      - http:
           method: get
