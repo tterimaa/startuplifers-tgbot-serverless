@@ -7,12 +7,11 @@ export function getJobs(bucketName, fileName) {
     Bucket: bucketName,
     Key: fileName
   };
-
-  return s3.getObject(params, err => {
-    if(err) {
-      console.log(err);
-    };
-  }).promise();
-}
+  try {
+    return s3.getObject(params).promise();
+  } catch(error) {
+    console.log(error);
+  }
+};
 
 export default getJobs;
