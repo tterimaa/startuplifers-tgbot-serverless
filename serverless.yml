@@ -24,13 +24,13 @@ provider:
   #  sampleEnvVar: ${env:SAMPLE_ENV_VAR}
 
 functions:
-  uploadTestApi:
-    handler: uploadTestApi.main
+  index:
+    handler: index.main
     events:
       - http:
           method: get
-  index:
-    handler: index.main
+  uploadTestJobs:
+    handler: uploadTestJobs.main
     events:
       - http:
           method: get
