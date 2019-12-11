@@ -7,8 +7,8 @@ npm-debug.log*
 uploadTestJobs.js
 
 # Directories
-mocks
-tests
+mocks/
+tests/
 
 # Runtime data
 pids
