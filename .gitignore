@@ -6,10 +6,6 @@ npm-debug.log*
 # Functions
 uploadTestJobs.js
 
-# Directories
-mocks/
-tests/
-
 # Runtime data
 pids
 *.pid
