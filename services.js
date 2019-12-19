@@ -1,6 +1,7 @@
 import AWS from 'aws-sdk';
+import axios from 'axios';
 
-export function getJobs(bucketName, fileName) {
+export async function getStoredJobs(bucketName, fileName) {
   const s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
   const params = {
@@ -9,7 +10,8 @@ export function getJobs(bucketName, fileName) {
   };
 
   try {
-    return s3.getObject(params).promise();
+    const res = await s3.getObject(params).promise();
+    return JSON.parse(res.Body.toString());
   } catch(err) {
     throw err;
   }
@@ -24,9 +26,13 @@ export function storeJobs(bucketName, fileName, json) {
       Body: JSON.stringify(json)
     };
 
-    try {
-      return s3.upload(uploadParams).promise();
-    } catch(err) {
-      throw err;
-    }
+    s3.upload(uploadParams, (err, data) => {
+        if(err) throw err;
+        else console.log('Jobs stored succesfully to ', fileName);
+      });
+};
+
+export async function getApiJobs(url) {
+    const res = await axios.get(url);
+    return res.data;
 };

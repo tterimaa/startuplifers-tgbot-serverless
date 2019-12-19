@@ -4,6 +4,7 @@
   "description": "A Node.js starter for the Serverless Framework with async/await and unit test support",
   "main": "handler.js",
   "scripts": {
+    "invoke:index": "serverless invoke local --function index",
     "test": "NODE_ENV=test serverless-bundle --inspect test"
   },
   "author": "",

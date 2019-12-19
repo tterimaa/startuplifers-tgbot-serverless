@@ -1,33 +1,35 @@
-import { getJobs, storeJobs } from './services';
-import axios from 'axios';
+import { getStoredJobs, storeJobs, getApiJobs } from './services';
 import bot from './bot';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const fileName = process.env.NODE_ENV === 'test'
-  ? 'testJobs.json'
-  : 'jobs.json';
+const isTest = process.env.NODE_ENV === 'test';
+const apiUrl = 'https://api.lever.co/v0/postings/startuplifers?mode=json';
+const fileName = 'testJobs.json';
 const channelName = '@testikanava123';
 
 export async function main() {
-  let res;
+  let storedJobs;
   try {
-    res = await getJobs('startuplifersbucket', fileName);
+    storedJobs = await getStoredJobs('startuplifersbucket', fileName);
   } catch(err) {
-    console.log('Error while getting jobs', err);
+    console.log('Error while getting jobs ', err);
   }
 
-  const jobsStored = JSON.parse(res.Body.toString());
-  const inApi = await axios.get('https://api.lever.co/v0/postings/startuplifers?mode=json');
+  let apiJobs = await getApiJobs(apiUrl);
+  let newJobs = apiJobs.filter(jobApi => !storedJobs.map(jobStored => jobStored.id).includes(jobApi.id));
 
-  const newJobs = inApi.data.filter(jobApi => !jobsStored.map(jobStored => jobStored.id).includes(jobApi.id));
-
-  if(process.env.NODE_ENV === 'test') return newJobs;
+  if(isTest) return newJobs;
 
   if(newJobs) {
-    for(let newJob of newJobs) {
-      await bot.sendMessage(channelName, newJob.text);
+    newJobs.forEach(job => {
+      const message = `${job.hostedUrl}\n\n${job.text}`;
+      bot.sendMessage(channelName, message);
+    });
+    try {
+      storeJobs('startuplifersbucket', 'jobs.json', apiJobs);
+    } catch(err) {
+      console.log('Error while storing jobs ', err);
     }
-    await storeJobs('startuplifersbucket', 'jobs.json', inApi.data);
   }
 }
