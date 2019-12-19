@@ -29,8 +29,4 @@ functions:
     events:
       - http:
           method: get
-  uploadTestJobs:
-    handler: uploadTestJobs.main
-    events:
-      - http:
-          method: get
+          path: index
