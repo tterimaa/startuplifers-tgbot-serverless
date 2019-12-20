@@ -17,7 +17,7 @@ export async function getStoredJobs(bucketName, fileName) {
   }
 };
 
-export function storeJobs(bucketName, fileName, json) {
+export async function storeJobs(bucketName, fileName, json) {
     const s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
     let uploadParams = {
@@ -26,10 +26,11 @@ export function storeJobs(bucketName, fileName, json) {
       Body: JSON.stringify(json)
     };
 
-    s3.upload(uploadParams, (err, data) => {
-        if(err) throw err;
-        else console.log('Jobs stored succesfully to ', fileName);
-      });
+    try {
+      await s3.upload(uploadParams);
+    } catch(err) {
+      throw err;
+    }
 };
 
 export async function getApiJobs(url) {

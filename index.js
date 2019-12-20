@@ -8,12 +8,12 @@ const apiUrl = 'https://api.lever.co/v0/postings/startuplifers?mode=json';
 const fileName = 'testJobs.json';
 const channelName = '@testikanava123';
 
-export async function main() {
+export async function main(event, context) {
   let storedJobs;
   try {
     storedJobs = await getStoredJobs('startuplifersbucket', fileName);
   } catch(err) {
-    console.log('Error while getting jobs ', err);
+    return { statusCode: 500, body: `Error while getting stored jobs: ${err}` };
   }
 
   let apiJobs = await getApiJobs(apiUrl);
@@ -22,14 +22,17 @@ export async function main() {
   if(isTest) return newJobs;
 
   if(newJobs) {
+    let promises = [];
     newJobs.forEach(job => {
-      const message = `${job.hostedUrl}\n\n${job.text}`;
-      bot.sendMessage(channelName, message);
+      promises.push(bot.sendMessage(channelName, `${job.hostedUrl}\n\n${job.text}`));
     });
+    await Promise.all(promises);
     try {
-      storeJobs('startuplifersbucket', 'jobs.json', apiJobs);
+       await storeJobs('startuplifersbucket', 'jobs.json', apiJobs);
     } catch(err) {
-      console.log('Error while storing jobs ', err);
+      return { statusCode: 500, body: `Error while storing new jobs: ${err}` };
     }
   }
+
+  return { statusCode: 200, body: 'Function invoked succesfully' };
 }
