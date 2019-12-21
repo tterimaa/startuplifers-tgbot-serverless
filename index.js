@@ -22,10 +22,7 @@ export async function main(event, context) {
   if(isTest) return newJobs;
 
   if(newJobs) {
-    let promises = [];
-    newJobs.forEach(job => {
-      promises.push(bot.sendMessage(channelName, `${job.hostedUrl}\n\n${job.text}`));
-    });
+    let promises = newJobs.map(job => bot.sendMessage(channelName, `${job.hostedUrl}\n\n${job.text}`));
     await Promise.all(promises);
     try {
        await storeJobs('startuplifersbucket', 'jobs.json', apiJobs);
