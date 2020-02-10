@@ -5,7 +5,7 @@ dotenv.config();
 
 const isTest = process.env.NODE_ENV === 'test';
 const apiUrl = 'https://api.lever.co/v0/postings/startuplifers?mode=json';
-const fileName = 'testJobs.json';
+const fileName = isTest ? 'testJobs.json': 'jobs.json';
 const channelName = '@testikanava123';
 
 export async function main(event, context) {
