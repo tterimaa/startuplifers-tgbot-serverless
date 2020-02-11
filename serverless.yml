@@ -31,4 +31,3 @@ functions:
       - http:
           method: get
           path: index
-      - schedule: rate(24 hours)
