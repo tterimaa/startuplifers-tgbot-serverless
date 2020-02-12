@@ -6,7 +6,7 @@
   "scripts": {
     "invoke:index": "serverless invoke local --function index",
     "uploadTestJobs": "node uploadTestJobs.js",
-    "test": "NODE_ENV=test serverless-bundle --inspect test"
+    "test": "NODE_ENV=test serverless-bundle test"
   },
   "author": "",
   "license": "MIT",
