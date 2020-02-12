@@ -20,7 +20,7 @@ export async function getStoredJobs(bucketName, fileName) {
 export async function storeJobs(bucketName, fileName, json) {
     const s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
-    let uploadParams = {
+    const uploadParams = {
       Bucket: bucketName,
       Key: fileName,
       Body: JSON.stringify(json)
