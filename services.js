@@ -27,7 +27,7 @@ export async function storeJobs(bucketName, fileName, json) {
     };
 
     try {
-      await s3.upload(uploadParams);
+      await s3.upload(uploadParams).promise();
     } catch(err) {
       throw err;
     }
