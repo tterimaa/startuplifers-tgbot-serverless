@@ -5,7 +5,7 @@ dotenv.config();
 
 const apiUrl = "https://api.lever.co/v0/postings/startuplifers?mode=json";
 const fileName = "jobs.json";
-const bucketName = "startuplifersbucket";
+const bucketName = "leverjobs";
 const channelName = "@testikanava123";
 
 export async function main() {
