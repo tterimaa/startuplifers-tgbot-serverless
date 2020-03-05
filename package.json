@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "serverless invoke local --function index",
-    "test": "NODE_ENV=test serverless-bundle test"
+    "test": "NODE_ENV=test serverless-bundle test",
+    "deploy": "serverless deploy"
   },
   "author": "",
   "license": "MIT",
