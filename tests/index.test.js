@@ -1,7 +1,9 @@
 import { main } from "../index";
 import { storeJobs, getApiJobs } from "../services";
+import dotenv from 'dotenv';
+dotenv.config();
 
-const bucketName = "startuplifersbucket";
+const bucketName = process.env.BUCKET_NAME;
 
 let apiJobs;
 

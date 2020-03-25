@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "serverless invoke local --function index",
-    "test": "NODE_ENV=test serverless-bundle test"
+    "test": "NODE_ENV=test serverless-bundle test",
+    "deploy": "serverless deploy"
   },
   "author": "",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tterimaa/startuplifers-tgbot-serverless"
+    "url": "https://github.com/Startuplifers/startuplifers-tgbot-serverlesss"
   },
   "devDependencies": {
     "aws-sdk": "^2.582.0",
