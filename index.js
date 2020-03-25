@@ -8,7 +8,7 @@ const fileName = "jobs.json";
 const bucketName = process.env.BUCKET_NAME;
 const channelName = "@testikanava123";
 
-export async function main() {
+export async function main(event, context, callback) {
   let storedJobs;
   try {
     storedJobs = await getStoredJobs(bucketName, fileName);
@@ -32,11 +32,12 @@ export async function main() {
     }
   }
 
+  const responseBody = {
+    "message": "Function invoked succesfully"
+  };
+
   return {
-    statusCode: 200,
-    body: {
-      message: "Function invoked succesfully",
-      jobsSent: newJobs
-    }
+    "statusCode": 200,
+    "body": JSON.stringify(responseBody)
   };
 }
