@@ -27,7 +27,7 @@ If you want to create an own IAM user for the bot, you need to grant the followi
 * IAMFullAccess
 * AWSLambdaFullAccess
 
-After configuring awscli you need to **create a s3 bucket**, name it according to environment variable BUCKET_NAME and add jobs.json to the bucket. jobs.json must initially contain an empty array []. After the first execution this file will contains the previous state of the json file in the API.
+After configuring awscli you need to **create a s3 bucket**, name it according to environment variable **BUCKET_NAME** and add **jobs.json** to the bucket. jobs.json must initially contain an **empty array []**. After the first execution this file will contains the previous state of the json file in the API.
 
 ### Setup Telegram
 
@@ -42,7 +42,7 @@ Before starting you need to create .env file containing:
 ```
 TOKEN=your-token
 BUCKET_NAME=your-bucket-name
-´´´
+```
 
 Now everything should be set up. Start the project using: `npm start`
 
@@ -68,7 +68,7 @@ events:
           method: get
           path: index
       - schedule: rate(24 hours)
-´´´
+```
 
 
 
