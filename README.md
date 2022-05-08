@@ -1,3 +1,5 @@
+NOTE: This project currently lives in https://github.com/Startuplifers/startuplifers-tgbot-serverless
+
 # Telegram bot for Startuplifers
 
 Telegram bot that sends new job postings to a publicly available Telegram channel.
